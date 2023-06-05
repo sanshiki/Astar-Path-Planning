@@ -1,0 +1,1 @@
+/usr/bin/c++   -std=c++17 -pthread  -rdynamic CMakeFiles/main.dir/src/MapIO.cpp.o CMakeFiles/main.dir/src/Path_Planning.cpp.o CMakeFiles/main.dir/src/Traversability_Mapping.cpp.o CMakeFiles/main.dir/src/main.cpp.o  -o main 
