@@ -6,17 +6,7 @@
 
 #IncludeRegexTransform: 
 
-../inc/MapIO.h
-include.h
-../inc/include.h
-Path_Planning.h
 ../inc/Path_Planning.h
-
-../inc/Path_Planning.h
-include.h
-../inc/include.h
-
-../inc/Traversability_Mapping.h
 include.h
 ../inc/include.h
 
@@ -40,18 +30,6 @@ eigen3/Eigen/Core
 ctime
 -
 
-/home/sanshiki/repositories/Astar-Path-Planning/src/MapIO.cpp
-MapIO.h
-/home/sanshiki/repositories/Astar-Path-Planning/src/MapIO.h
-sys/socket.h
--
-netinet/in.h
--
-cstring
--
-unistd.h
--
-
 /home/sanshiki/repositories/Astar-Path-Planning/src/Path_Planning.cpp
 Path_Planning.h
 /home/sanshiki/repositories/Astar-Path-Planning/src/Path_Planning.h
@@ -59,24 +37,4 @@ boost/multiprecision/cpp_int.hpp
 -
 boost/multiprecision/cpp_bin_float.hpp
 -
-
-/home/sanshiki/repositories/Astar-Path-Planning/src/Traversability_Mapping.cpp
-Traversability_Mapping.h
-/home/sanshiki/repositories/Astar-Path-Planning/src/Traversability_Mapping.h
-
-/home/sanshiki/repositories/Astar-Path-Planning/src/main.cpp
-iostream
--
-fstream
--
-eigen3/Eigen/Dense
--
-eigen3/Eigen/Core
--
-Path_Planning.h
-/home/sanshiki/repositories/Astar-Path-Planning/src/Path_Planning.h
-MapIO.h
-/home/sanshiki/repositories/Astar-Path-Planning/src/MapIO.h
-Traversability_Mapping.h
-/home/sanshiki/repositories/Astar-Path-Planning/src/Traversability_Mapping.h
 

@@ -138,7 +138,8 @@ Path AStar(const Point& start, const Point& end, const Eigen::MatrixXd& grid,con
     Costv2 cost_so_far;
     cost_so_far[start] = 0;
     frontier.push(Node(0,start));
-
+    bool pathFound = false;
+    clock_t start_time = clock();
 
     while(!frontier.empty())
     {
@@ -146,7 +147,11 @@ Path AStar(const Point& start, const Point& end, const Eigen::MatrixXd& grid,con
         Point current = frontier.top().pos;
         frontier.pop();
 
-        if(current == end) break;
+        if(current == end)
+        {
+            pathFound = true;
+            break;
+        }
 
         clock_t lap1 = clock();
         for(int i=0;i<directions.size();i++)
@@ -157,11 +162,11 @@ Path AStar(const Point& start, const Point& end, const Eigen::MatrixXd& grid,con
             if((new_pos.x >= 0 && new_pos.x < grid.rows()) && (new_pos.y >= 0 && new_pos.y < grid.cols()))
             {
                 int new_cost = cost_so_far[current] + costs[i];
-                if(grid(new_pos.x,new_pos.y) == 1 && (cost_so_far.find(new_pos) == -1 || new_cost < cost_so_far[new_pos]) && !rect_inflation_search(grid,new_pos.x,new_pos.y,safety_zone))
+                if(grid(new_pos.x,new_pos.y) == 1 && (cost_so_far.find(new_pos) == -1 || new_cost < cost_so_far[new_pos]) && !circle_inflation_search(grid,new_pos.x,new_pos.y,safety_zone)/*!rect_inflation_search(grid,new_pos.x,new_pos.y,safety_zone)*/)
                 {
                     cost_so_far[new_pos] = new_cost;
                     int priority = new_cost + heuristic(new_pos,end);
-                    if(current.direction != new_pos.direction) priority *= CONG::TURN_DAMPING;
+                    // if(current.direction != new_pos.direction) priority *= CONG::TURN_DAMPING;       //转弯阻尼，已废弃
                     frontier.push(Node(priority,new_pos));
                     came_from[new_pos] = current;
                     // cout << "current: " << current.x << " " << current.y << " " << current.direction << endl;
@@ -174,13 +179,14 @@ Path AStar(const Point& start, const Point& end, const Eigen::MatrixXd& grid,con
 
     //输出路径
     Path path;
-    if(came_from.size() == 0)
+    if(came_from.size() == 0 || !pathFound)
     {
         std::cout << "No path found!" << std::endl;
     }    
     else
     {
         std::cout << "Path found!" << std::endl;
+        cout << "A* spend:" << (double)(clock() - start_time) / CLOCKS_PER_SEC << "s" << endl;
         Point current = end;
         while(current != start)
         {
@@ -258,6 +264,27 @@ bool rect_inflation_search(const Eigen::MatrixXd& grid,int x,int y,int d)
             if(grid(i,j) == 0)
             {
                 return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool circle_inflation_search(const Eigen::MatrixXd& grid,int x,int y,int d)
+{
+    int x_min,x_max,y_min,y_max;
+    rect_limit(grid.rows(),grid.cols(),d,x,y,x_min,x_max,y_min,y_max);
+
+    for(int i=x_min;i<=x_max;i++)
+    {
+        for(int j=y_min;j<=y_max;j++)
+        {
+            if(grid(i,j) == 0)
+            {
+                if((i-x)*(i-x) + (j-y)*(j-y) <= d*d)
+                {
+                    return true;
+                }
             }
         }
     }

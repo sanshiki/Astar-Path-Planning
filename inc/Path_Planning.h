@@ -273,6 +273,7 @@ std::vector<Node*> reconstructPath(Node* current);
 std::vector<Node*> getNeighbours(const Node& node, const Eigen::MatrixXd& grid);
 void rect_inflation(Eigen::MatrixXd& grid,int x,int y,int d);
 bool rect_inflation_search(const Eigen::MatrixXd& grid,int x,int y,int d);
+bool circle_inflation_search(const Eigen::MatrixXd& grid,int x,int y,int d);
 void inflation(Eigen::MatrixXd& grid,int d,bool use_search);
 void path_pruning(Path& path);
 void bezier_curve_fit(Path& path);
