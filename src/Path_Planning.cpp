@@ -557,6 +557,13 @@ Point bezier_curve(Path& path,cpp_bin_float_oct t)
         // cout << "calculating: " << path[i].x << ", " << path[i].y << "| i=" << i << ", n=" << n << ", t=" << t << endl;
     }
     comb_flag = true;
+    
+    if(t == 1) //最后一个点，生成完这个点后重置标志位并清空组合数容器
+    {
+        comb_flag = false;
+        comb_vec.clear();
+    }
+    
     res.x = tempX.convert_to<int>();
     res.y = tempY.convert_to<int>();
     // cout << "-------------------generate point: " << res.x << ", " << res.y << endl;
