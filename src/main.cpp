@@ -22,7 +22,7 @@ TODO LIST:
 * Point 改用Eigen库（可选）
 * 最佳路径再尝试（可选）
 * A*算法优化（可选）
-* A*算法有bug：选取某些点，设定安全半径过大时有时候会卡在current = came_from[current]这一步，原因未知
+* A*算法有bug：选取某些点，设定安全半径过大时有时候会卡在current = came_from[current]这一步，原因未知       已解决
 * Debug开关
 */
 
